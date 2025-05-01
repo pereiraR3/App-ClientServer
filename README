@@ -1,0 +1,42 @@
+# Sistema de Envio de Arquivos - Cliente/Servidor TCP
+
+Este repositório contém uma aplicação simples para envio de arquivos entre um cliente e um servidor utilizando sockets TCP. O cliente envia um arquivo para o servidor, e o servidor recebe e salva o arquivo no seu diretório local.
+
+## Descrição
+
+Este projeto consiste em duas partes principais:
+
+1. **`cliente.py`**: O script cliente é responsável por enviar um arquivo para o servidor. Ele envia o nome e o conteúdo do arquivo para o servidor, usando o protocolo TCP.
+2. **`servidor_tcp.py`**: O script servidor escuta uma porta TCP, aguarda a conexão de um cliente e recebe o arquivo enviado. Ele então salva o arquivo localmente.
+
+Ambos os scripts utilizam o protocolo TCP para a comunicação entre cliente e servidor. O código é simples e pode ser facilmente estendido para incluir mais funcionalidades, como múltiplas conexões ou criptografia.
+
+## Requisitos
+
+- Python 3.x ou superior.
+- Sistema operacional com suporte a sockets TCP.
+- Nenhuma dependência externa além da biblioteca padrão do Python.
+
+## Funcionalidades
+
+- O **cliente** envia um arquivo para o **servidor**.
+- O **servidor** salva o arquivo enviado no seu diretório local.
+- A comunicação é feita utilizando sockets TCP, garantindo uma transmissão de dados confiável.
+- O código verifica a existência do arquivo e valida o caminho fornecido.
+
+## Estrutura do Projeto
+
+O projeto é composto pelos seguintes arquivos:
+
+- **`cliente.py`**: Script que realiza a conexão com o servidor e envia um arquivo.
+- **`servidor_tcp.py`**: Script que escuta as conexões do cliente e recebe o arquivo.
+
+## Como Executar
+
+### Servidor
+
+1. Abra um terminal e navegue até o diretório onde o código está salvo.
+2. Execute o servidor com o seguinte comando:
+
+   ```bash
+   python3 servidor_tcp.py
