@@ -1,11 +1,8 @@
-# cliente.py
-
 import socket
-import sys      # Para acessar argumentos da linha de comando (sys.argv)
-import os       # Para verificar existência de arquivos, pegar tamanho, nome base
-import struct   # Para empacotar o tamanho do nome do arquivo
+import sys     
+import os      
+import struct  
 
-# --- Configurações ---
 # Porta do servidor (deve ser a mesma definida no servidor.py)
 SERVER_PORT = 9999
 BUFFER_SIZE = 4096 # Tamanho do buffer para ler/enviar o arquivo (4KB)
@@ -20,9 +17,9 @@ def send_file(server_ip, filepath):
         print(f"[!] Erro: O caminho '{filepath}' não é um arquivo válido.")
         return
 
-    # Extrair apenas o nome base do arquivo (ex: de /home/user/doc.txt -> doc.txt)
+    # Extrair apenas o nome base do arquivo 
     filename = os.path.basename(filepath)
-    if not filename: # Caso o caminho seja algo como '/' ou 'C:\'
+    if not filename:
          print(f"[!] Erro: Não foi possível extrair um nome de arquivo válido de '{filepath}'")
          return
 
@@ -40,7 +37,6 @@ def send_file(server_ip, filepath):
         # a) Enviar o tamanho do nome do arquivo
         filename_bytes = filename.encode('utf-8')
         filename_len = len(filename_bytes)
-        # Empacota o tamanho como um inteiro de 4 bytes, big-endian ('>I')
         packed_filename_len = struct.pack('>I', filename_len)
 
         client_socket.sendall(packed_filename_len)
@@ -53,20 +49,15 @@ def send_file(server_ip, filepath):
         # c) Enviar o conteúdo do arquivo
         print(f"[*] Iniciando envio do conteúdo de '{filepath}'...")
         try:
-            # Abrir o arquivo em modo de leitura binária ('rb')
             with open(filepath, 'rb') as f:
                 while True:
-                    # Ler um pedaço (chunk) do arquivo
                     chunk = f.read(BUFFER_SIZE)
                     if not chunk:
-                        # Chegou ao fim do arquivo
                         break
-                    # Enviar o chunk lido para o servidor
                     client_socket.sendall(chunk)
             print(f"[+] Conteúdo do arquivo '{filename}' enviado com sucesso.")
 
         except FileNotFoundError:
-             # Reforço, embora já verificado no início
              print(f"[!] Erro: Arquivo '{filepath}' não encontrado durante a leitura.")
         except IOError as e:
             print(f"[!] Erro de I/O ao ler o arquivo '{filepath}': {e}")
@@ -74,36 +65,27 @@ def send_file(server_ip, filepath):
             print(f"[!] Erro inesperado ao ler ou enviar o arquivo: {e}")
 
     except socket.gaierror as e:
-        # Erro comum se o IP/hostname for inválido
         print(f"[!] Erro de endereço: Não foi possível resolver o host '{server_ip}'. Verifique o IP/nome.")
         print(f"    Detalhe: {e}")
     except ConnectionRefusedError:
-        # Erro comum se o servidor não estiver rodando ou a porta estiver errada
         print(f"[!] Erro: A conexão foi recusada. Verifique se o servidor está rodando em {server_ip}:{SERVER_PORT}.")
     except socket.error as e:
-        # Outros erros de socket (timeout, rede, etc.)
         print(f"[!] Erro de Socket durante a conexão/envio: {e}")
     except Exception as e:
-        # Captura geral para outros erros inesperados
         print(f"[!] Um erro inesperado ocorreu no cliente: {e}")
     finally:
         # 4. Fechar o socket do cliente, independentemente de sucesso ou erro
         print("[*] Fechando o socket do cliente.")
         client_socket.close()
 
-
-# --- Ponto de Entrada do Script ---
 if __name__ == "__main__":
     # 1. Verificar se o número correto de argumentos foi passado
     if len(sys.argv) != 3:
-        # sys.argv[0] é o nome do script
-        # sys.argv[1] deve ser o IP do servidor
-        # sys.argv[2] deve ser o caminho do arquivo
         print("\nErro: Número incorreto de argumentos.")
         print("Uso correto: python cliente.py <ip-do-servidor> <caminho-do-arquivo>")
         print("Exemplo:   python cliente.py localhost meu_documento.txt")
         print("           python cliente.py 192.168.1.10 /home/user/foto.jpg\n")
-        sys.exit(1) # Termina o script indicando um erro
+        sys.exit(1)
 
     # 2. Pegar os argumentos da linha de comando
     server_address = sys.argv[1]
