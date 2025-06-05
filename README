@@ -1,42 +1,42 @@
-# Sistema de Envio de Arquivos - Cliente/Servidor TCP
+# File Transfer System - TCP Client/Server
 
-Este repositório contém uma aplicação simples para envio de arquivos entre um cliente e um servidor utilizando sockets TCP. O cliente envia um arquivo para o servidor, e o servidor recebe e salva o arquivo no seu diretório local.
+This repository contains a simple application for file transfer between a client and a server using TCP sockets. The client sends a file to the server, and the server receives and saves the file in its local directory.
 
-## Descrição
+## Description
 
-Este projeto consiste em duas partes principais:
+This project consists of two main parts:
 
-1. **`cliente.py`**: O script cliente é responsável por enviar um arquivo para o servidor. Ele envia o nome e o conteúdo do arquivo para o servidor, usando o protocolo TCP.
-2. **`servidor_tcp.py`**: O script servidor escuta uma porta TCP, aguarda a conexão de um cliente e recebe o arquivo enviado. Ele então salva o arquivo localmente.
+1. **`client.py`**: The client script is responsible for sending a file to the server. It sends both the file name and its content using the TCP protocol.
+2. **`server_tcp.py`**: The server script listens on a TCP port, waits for a client connection, and receives the file. It then saves the file locally.
 
-Ambos os scripts utilizam o protocolo TCP para a comunicação entre cliente e servidor. O código é simples e pode ser facilmente estendido para incluir mais funcionalidades, como múltiplas conexões ou criptografia.
+Both scripts use the TCP protocol to handle communication between client and server. The code is simple and can be easily extended to support additional features such as multiple connections or encryption.
 
-## Requisitos
+## Requirements
 
-- Python 3.x ou superior.
-- Sistema operacional com suporte a sockets TCP.
-- Nenhuma dependência externa além da biblioteca padrão do Python.
+- Python 3.x or later.
+- An operating system with support for TCP sockets.
+- No external dependencies other than Python’s standard library.
 
-## Funcionalidades
+## Features
 
-- O **cliente** envia um arquivo para o **servidor**.
-- O **servidor** salva o arquivo enviado no seu diretório local.
-- A comunicação é feita utilizando sockets TCP, garantindo uma transmissão de dados confiável.
-- O código verifica a existência do arquivo e valida o caminho fornecido.
+- The **client** sends a file to the **server**.
+- The **server** saves the received file in its local directory.
+- Communication is handled using TCP sockets, ensuring reliable data transmission.
+- The code checks whether the file exists and validates the given file path.
 
-## Estrutura do Projeto
+## Project Structure
 
-O projeto é composto pelos seguintes arquivos:
+The project includes the following files:
 
-- **`cliente.py`**: Script que realiza a conexão com o servidor e envia um arquivo.
-- **`servidor_tcp.py`**: Script que escuta as conexões do cliente e recebe o arquivo.
+- **`client.py`**: Script that connects to the server and sends a file.
+- **`server_tcp.py`**: Script that listens for client connections and receives the file.
 
-## Como Executar
+## How to Run
 
-### Servidor
+### Server
 
-1. Abra um terminal e navegue até o diretório onde o código está salvo.
-2. Execute o servidor com o seguinte comando:
+1. Open a terminal and navigate to the directory where the code is located.
+2. Run the server with the following command:
 
    ```bash
-   python3 servidor_tcp.py
+   python3 server_tcp.py
